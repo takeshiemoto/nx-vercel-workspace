@@ -32,7 +32,8 @@
     "react-dom": "16.13.1",
     "next": "9.5.2",
     "react-is": "16.13.1",
-    "styled-components": "5.1.1"
+    "styled-components": "5.1.1",
+    "react-router-dom": "5.2.0"
   },
   "devDependencies": {
     "@nrwl/workspace": "10.1.0",
@@ -71,6 +72,7 @@
     "babel-jest": "26.2.2",
     "@types/styled-components": "5.1.0",
     "@types/react-is": "16.7.1",
-    "babel-plugin-styled-components": "1.10.7"
+    "babel-plugin-styled-components": "1.10.7",
+    "@types/react-router-dom": "5.1.5"
   }
 }
