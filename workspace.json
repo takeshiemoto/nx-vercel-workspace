@@ -191,6 +191,113 @@
           }
         }
       }
+    },
+    "react-admin-app": {
+      "root": "apps/react-admin-app",
+      "sourceRoot": "apps/react-admin-app/src",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:build",
+          "options": {
+            "outputPath": "dist/apps/react-admin-app",
+            "index": "apps/react-admin-app/src/index.html",
+            "main": "apps/react-admin-app/src/main.tsx",
+            "polyfills": "apps/react-admin-app/src/polyfills.ts",
+            "tsConfig": "apps/react-admin-app/tsconfig.app.json",
+            "assets": [
+              "apps/react-admin-app/src/favicon.ico",
+              "apps/react-admin-app/src/assets"
+            ],
+            "styles": [],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/react-admin-app/src/environments/environment.ts",
+                  "with": "apps/react-admin-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "react-admin-app:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "react-admin-app:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/react-admin-app/tsconfig.app.json",
+              "apps/react-admin-app/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/react-admin-app/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/react-admin-app/jest.config.js",
+            "tsConfig": "apps/react-admin-app/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "react-admin-app-e2e": {
+      "root": "apps/react-admin-app-e2e",
+      "sourceRoot": "apps/react-admin-app-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/react-admin-app-e2e/cypress.json",
+            "tsConfig": "apps/react-admin-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "react-admin-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "react-admin-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": ["apps/react-admin-app-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/react-admin-app-e2e/**/*"]
+          }
+        }
+      }
     }
   },
   "cli": {

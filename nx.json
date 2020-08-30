@@ -35,6 +35,13 @@
     "react-app-e2e": {
       "tags": [],
       "implicitDependencies": ["react-app"]
+    },
+    "react-admin-app": {
+      "tags": []
+    },
+    "react-admin-app-e2e": {
+      "tags": [],
+      "implicitDependencies": ["react-admin-app"]
     }
   }
 }
