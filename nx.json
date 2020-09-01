@@ -45,6 +45,13 @@
     },
     "ui": {
       "tags": []
+    },
+    "ec-app": {
+      "tags": []
+    },
+    "ec-app-e2e": {
+      "tags": [],
+      "implicitDependencies": ["ec-app"]
     }
   }
 }
