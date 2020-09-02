@@ -78,7 +78,7 @@ export const App = () => {
                     align={'center'}
                     justify={'center'}
                   >
-                    sidebar
+                    sidebar test
                   </Box>
                 </Layer>
               )}
