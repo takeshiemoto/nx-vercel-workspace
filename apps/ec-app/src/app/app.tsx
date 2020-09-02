@@ -1,7 +1,14 @@
-import React from 'react';
-import { Route, Link } from 'react-router-dom';
-import { Button, Grommet, Heading } from 'grommet';
-import { Notification } from 'grommet-icons';
+import React, { useState } from 'react';
+import {
+  Box,
+  Button,
+  Collapsible,
+  Grommet,
+  Heading,
+  Layer,
+  ResponsiveContext,
+} from 'grommet';
+import { Notification, FormClose } from 'grommet-icons';
 import AppBar from './components/AppBar';
 
 const theme = {
@@ -18,42 +25,67 @@ const theme = {
 };
 
 export const App = () => {
+  const [showSidebar, setShowSidebar] = useState(false);
+
   return (
-    <Grommet theme={theme}>
-      <AppBar>
-        <Heading level={'3'} margin={'none'}>
-          My App
-        </Heading>
-        <Button icon={<Notification />} onClick={() => {}} />
-      </AppBar>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/page-2">Page 2</Link>
-        </li>
-      </ul>
-      <Route
-        path="/"
-        exact
-        render={() => (
-          <div>
-            This is the generated root route.{' '}
-            <Link to="/page-2">Click here for page 2.</Link>
-          </div>
+    <Grommet theme={theme} full>
+      <ResponsiveContext.Consumer>
+        {(size) => (
+          <Box fill>
+            <AppBar>
+              <Heading level={'3'} margin={'none'}>
+                My App
+              </Heading>
+              <Button
+                icon={<Notification />}
+                onClick={() => setShowSidebar(!showSidebar)}
+              />
+            </AppBar>
+            <Box direction={'row'} flex overflow={{ horizontal: 'hidden' }}>
+              <Box flex align={'center'} justify={'center'}>
+                app body
+              </Box>
+              {!showSidebar || size !== 'small' ? (
+                <Collapsible direction={'horizontal'} open={showSidebar}>
+                  <Box
+                    flex
+                    width={'medium'}
+                    background={'light-2'}
+                    elevation={'small'}
+                    align={'center'}
+                    justify={'center'}
+                  >
+                    side bar
+                  </Box>
+                </Collapsible>
+              ) : (
+                <Layer>
+                  <Box
+                    background={'light-2'}
+                    tag={'header'}
+                    justify={'end'}
+                    align={'center'}
+                    direction={'row'}
+                  >
+                    <Button
+                      icon={<FormClose />}
+                      onClick={() => setShowSidebar(false)}
+                    />
+                  </Box>
+                  <Box
+                    fill
+                    background={'light-2'}
+                    align={'center'}
+                    justify={'center'}
+                  >
+                    sidebar
+                  </Box>
+                </Layer>
+              )}
+            </Box>
+          </Box>
         )}
-      />
-      <Route
-        path="/page-2"
-        exact
-        render={() => (
-          <div>
-            <Link to="/">Click here to go back to root page.</Link>
-          </div>
-        )}
-      />
-      {/* END: routes */}
+      </ResponsiveContext.Consumer>
     </Grommet>
   );
 };
