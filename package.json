@@ -29,6 +29,8 @@
   "dependencies": {
     "document-register-element": "1.13.1",
     "grommet": "^2.15.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.13",
     "next": "9.5.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -75,5 +77,17 @@
     "ts-node": "~7.0.0",
     "tslint": "~6.0.0",
     "typescript": "~3.9.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "{apps,libs}/**/*.{ts,json,md,scss,html}": [
+      "npm run affected:lint  -- --uncommitted --parallel -- --fix",
+      "npm run format:write -- --uncommitted",
+      "git add"
+    ]
   }
 }
