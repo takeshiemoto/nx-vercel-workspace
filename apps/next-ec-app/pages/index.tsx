@@ -1,23 +1,36 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Box,
   Button,
+  Card,
   Collapsible,
+  Grid,
+  grommet,
   Grommet,
   Header,
   Heading,
+  ResponsiveContext,
   Sidebar,
 } from 'grommet';
 import { Cart } from 'grommet-icons';
 
 export const Index = () => {
   const [isVisibleCart, setIsVisibleCart] = useState(false);
+  const products = ['Cap', 'TShirt', 'Bottoms', 'Shoes'];
+  const brands = [
+    'BEAMS',
+    'SHIPS',
+    'JOURNAL STANDARD',
+    'TOMORROWLAND',
+    'Patagonia',
+    'URBAN RESEARCH',
+  ];
   return (
-    <Grommet full>
+    <Grommet theme={grommet} full>
       <Box fill>
         <Header
           direction={'row'}
-          background={'brand'}
+          background={'dark-2'}
           pad={{ left: 'medium', right: 'small', vertical: 'small' }}
           elevation={'medium'}
           style={{ zIndex: 1 }}
@@ -39,8 +52,29 @@ export const Index = () => {
           >
             Sidebar
           </Sidebar>
-          <Box flex align={'center'} justify={'center'}>
-            app body
+          <Box flex pad={'large'}>
+            <Heading level={'4'}>New Arrival</Heading>
+            <Grid columns={{ count: 3, size: 'auto' }} gap={'small'}>
+              {products.map((product, i) => (
+                <Card key={i} pad={'large'}>
+                  {product}
+                </Card>
+              ))}
+            </Grid>
+            <Heading level={'4'}>Brands</Heading>
+            <Grid columns={{ count: 6, size: 'auto' }} gap={'small'}>
+              {brands.map((brand, i) => (
+                <Box
+                  align={'center'}
+                  justify={'center'}
+                  background={'light-3'}
+                  key={i}
+                  pad={'large'}
+                >
+                  {brand}
+                </Box>
+              ))}
+            </Grid>
           </Box>
           <Collapsible direction={'horizontal'} open={isVisibleCart}>
             <Sidebar
