@@ -429,6 +429,90 @@
           }
         }
       }
+    },
+    "next-ec-app": {
+      "root": "apps/next-ec-app",
+      "sourceRoot": "apps/next-ec-app",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/next:build",
+          "options": {
+            "root": "apps/next-ec-app",
+            "outputPath": "dist/apps/next-ec-app"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/next:server",
+          "options": {
+            "buildTarget": "next-ec-app:build",
+            "dev": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "next-ec-app:build:production",
+              "dev": false
+            }
+          }
+        },
+        "export": {
+          "builder": "@nrwl/next:export",
+          "options": {
+            "buildTarget": "next-ec-app:build:production"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/next-ec-app/tsconfig.json",
+              "apps/next-ec-app/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/next-ec-app/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/next-ec-app/jest.config.js",
+            "tsConfig": "apps/next-ec-app/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "next-ec-app-e2e": {
+      "root": "apps/next-ec-app-e2e",
+      "sourceRoot": "apps/next-ec-app-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/next-ec-app-e2e/cypress.json",
+            "tsConfig": "apps/next-ec-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "next-ec-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "next-ec-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": ["apps/next-ec-app-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/next-ec-app-e2e/**/*"]
+          }
+        }
+      }
     }
   },
   "cli": {

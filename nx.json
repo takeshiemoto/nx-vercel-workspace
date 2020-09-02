@@ -52,6 +52,13 @@
     "ec-app-e2e": {
       "tags": [],
       "implicitDependencies": ["ec-app"]
+    },
+    "next-ec-app": {
+      "tags": []
+    },
+    "next-ec-app-e2e": {
+      "tags": [],
+      "implicitDependencies": ["next-ec-app"]
     }
   }
 }
