@@ -450,7 +450,8 @@
           "builder": "@nrwl/next:server",
           "options": {
             "buildTarget": "next-ec-app:build",
-            "dev": true
+            "dev": true,
+            "proxyConfig": "apps/next-ec-app/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -510,6 +511,62 @@
             "linter": "eslint",
             "tsConfig": ["apps/next-ec-app-e2e/tsconfig.e2e.json"],
             "exclude": ["**/node_modules/**", "!apps/next-ec-app-e2e/**/*"]
+          }
+        }
+      }
+    },
+    "ec-api": {
+      "root": "apps/ec-api",
+      "sourceRoot": "apps/ec-api/src",
+      "projectType": "application",
+      "prefix": "ec-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/ec-api",
+            "main": "apps/ec-api/src/main.ts",
+            "tsConfig": "apps/ec-api/tsconfig.app.json",
+            "assets": ["apps/ec-api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/ec-api/src/environments/environment.ts",
+                  "with": "apps/ec-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "ec-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/ec-api/tsconfig.app.json",
+              "apps/ec-api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/ec-api/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/ec-api/jest.config.js",
+            "tsConfig": "apps/ec-api/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }

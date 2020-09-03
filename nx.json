@@ -59,6 +59,9 @@
     "next-ec-app-e2e": {
       "tags": [],
       "implicitDependencies": ["next-ec-app"]
+    },
+    "ec-api": {
+      "tags": []
     }
   }
 }

@@ -24,7 +24,7 @@ const theme = {
 
 export const Index = () => {
   useEffect(() => {
-    fetch(`/api/user`)
+    fetch(`/api/products`)
       .then((res) => res.json())
       .then(console.log);
   }, []);
