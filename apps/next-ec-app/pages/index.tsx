@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -23,6 +23,11 @@ const theme = {
 };
 
 export const Index = () => {
+  useEffect(() => {
+    fetch(`/api/user`)
+      .then((res) => res.json())
+      .then(console.log);
+  }, []);
   const [isVisibleCart, setIsVisibleCart] = useState(false);
   const products = ['Cap', 'TShirt', 'Bottoms', 'Shoes'];
   const brands = [
