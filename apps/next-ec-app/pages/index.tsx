@@ -1,18 +1,26 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
   Card,
   Collapsible,
   Grid,
-  grommet,
   Grommet,
   Header,
   Heading,
-  ResponsiveContext,
   Sidebar,
 } from 'grommet';
 import { Cart } from 'grommet-icons';
+
+const theme = {
+  global: {
+    font: {
+      family: 'Roboto',
+      size: '18px',
+      height: '20px',
+    },
+  },
+};
 
 export const Index = () => {
   const [isVisibleCart, setIsVisibleCart] = useState(false);
@@ -26,7 +34,7 @@ export const Index = () => {
     'URBAN RESEARCH',
   ];
   return (
-    <Grommet theme={grommet} full>
+    <Grommet theme={theme} full>
       <Box fill>
         <Header
           direction={'row'}
