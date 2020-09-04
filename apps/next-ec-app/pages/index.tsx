@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import fetch from 'node-fetch';
+
 import {
   Box,
   Button,
@@ -11,6 +13,8 @@ import {
   Sidebar,
 } from 'grommet';
 import { Cart } from 'grommet-icons';
+import { GetServerSideProps } from 'next';
+import { Product } from '@nx-vercel-workspace/types';
 
 const theme = {
   global: {
@@ -22,14 +26,21 @@ const theme = {
   },
 };
 
-export const Index = () => {
-  useEffect(() => {
-    fetch(`/api/products`)
-      .then((res) => res.json())
-      .then(console.log);
-  }, []);
+const basePath = `http://localhost:3333`;
+export const getServerSideProps: GetServerSideProps = async () => {
+  const response = await fetch(`${basePath}/api/products?max=6`);
+  const products = (await response.json()) as Product[];
+  return {
+    props: { products },
+  };
+};
+
+interface IndexPageProps {
+  products: Product[];
+}
+
+export const Index = ({ products }: IndexPageProps) => {
   const [isVisibleCart, setIsVisibleCart] = useState(false);
-  const products = ['Cap', 'TShirt', 'Bottoms', 'Shoes'];
   const brands = [
     'BEAMS',
     'SHIPS',
@@ -68,9 +79,9 @@ export const Index = () => {
           <Box flex pad={'large'}>
             <Heading level={'4'}>New Arrival</Heading>
             <Grid columns={{ count: 3, size: 'auto' }} gap={'small'}>
-              {products.map((product, i) => (
-                <Card key={i} pad={'large'}>
-                  {product}
+              {products.map((product) => (
+                <Card key={product.id} pad={'large'}>
+                  {product.name}
                 </Card>
               ))}
             </Grid>

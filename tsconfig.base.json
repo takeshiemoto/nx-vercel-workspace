@@ -16,7 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@nx-vercel-workspace/ui": ["libs/ui/src/index.ts"]
+      "@nx-vercel-workspace/ui": ["libs/ui/src/index.ts"],
+      "@nx-vercel-workspace/types": ["libs/types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
