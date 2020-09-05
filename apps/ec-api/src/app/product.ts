@@ -11,4 +11,9 @@ export const addProductApiRoutes = (app: Express) => {
     const response = max ? products.slice(0, Number(max)) : products;
     res.send(response);
   });
+  app.get('/api/product/:id', (req: Request, res: Response) => {
+    const { id } = req.params;
+    const article = products.find((product) => product.id === Number(id));
+    return res.send(article);
+  });
 };

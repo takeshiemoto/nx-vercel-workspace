@@ -5,10 +5,12 @@
 
 import * as express from 'express';
 import { addProductApiRoutes } from './app/product';
+import { addCartApiRoutes } from './app/cart';
 
 const app = express();
 
 addProductApiRoutes(app);
+addCartApiRoutes(app);
 
 app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to ec-api!' });

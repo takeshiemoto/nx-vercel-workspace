@@ -1,9 +1,20 @@
 import React from 'react';
 import fetch from 'node-fetch';
 
-import { Box, Card, Grid, Heading, Sidebar } from 'grommet';
+import {
+  Box,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Grid,
+  Heading,
+} from 'grommet';
 import { GetServerSideProps } from 'next';
 import { Product } from '@nx-vercel-workspace/types';
+import { useRouter } from 'next/router';
+import { Add, Favorite } from 'grommet-icons';
 
 const basePath = `http://localhost:3333`;
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -19,6 +30,7 @@ interface IndexPageProps {
 }
 
 export const Index = ({ products }: IndexPageProps) => {
+  const router = useRouter();
   const brands = [
     'BEAMS',
     'SHIPS',
@@ -29,35 +41,32 @@ export const Index = ({ products }: IndexPageProps) => {
   ];
   return (
     <>
-      <Sidebar
-        width={'small'}
-        background={'light-2'}
-        align={'center'}
-        justify={'center'}
-      >
-        Sidebar
-      </Sidebar>
       <Box flex pad={'large'}>
         <Heading level={'4'}>New Arrival</Heading>
         <Grid columns={{ count: 3, size: 'auto' }} gap={'small'}>
           {products.map((product) => (
-            <Card key={product.id} pad={'large'}>
-              {product.name}
+            <Card background={'light-1'} key={product.id}>
+              <CardBody
+                onClick={() =>
+                  router.push(`/product/[id]`, `/product/${product.id}`)
+                }
+                pad={'large'}
+              >
+                {product.name}
+              </CardBody>
+              <CardFooter background={'light-2'} pad={'small'}>
+                <Button icon={<Favorite />} />
+                <Button
+                  primary
+                  color={'status-ok'}
+                  icon={<Add size={'small'} />}
+                  label={'Add Cart'}
+                  margin={'xxsmall'}
+                  gap={'xxsmall'}
+                  size={'small'}
+                />
+              </CardFooter>
             </Card>
-          ))}
-        </Grid>
-        <Heading level={'4'}>Brands</Heading>
-        <Grid columns={{ count: 6, size: 'auto' }} gap={'small'}>
-          {brands.map((brand, i) => (
-            <Box
-              align={'center'}
-              justify={'center'}
-              background={'light-3'}
-              key={i}
-              pad={'large'}
-            >
-              {brand}
-            </Box>
           ))}
         </Grid>
       </Box>
