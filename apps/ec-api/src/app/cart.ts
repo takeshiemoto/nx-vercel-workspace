@@ -1,24 +1,8 @@
 import { Express, Request, Response } from 'express';
-import { Cart } from '@nx-vercel-workspace/types';
+import { Cart, CartItem, Product } from '@nx-vercel-workspace/types';
 
 const cart: Cart = {
-  // Mock
-  items: [
-    {
-      product: {
-        id: 1,
-        name: 'AAA',
-      },
-      count: 2,
-    },
-    {
-      product: {
-        id: 2,
-        name: 'BBB',
-      },
-      count: 4,
-    },
-  ],
+  items: [],
 };
 
 export const addCartApiRoutes = (app: Express) => {
@@ -26,8 +10,13 @@ export const addCartApiRoutes = (app: Express) => {
     res.send(cart);
   });
   app.post('/api/cart', (req: Request, res: Response) => {
-    // todo items.push
-    res.send([]);
+    const product = req.body as Product;
+    const cartItem: CartItem = {
+      product,
+      count: 1,
+    };
+    cart.items.push(cartItem);
+    res.send(cartItem);
   });
   app.delete('/api/cart/:productId', (req: Request, res: Response) => {
     // todo items.filter
